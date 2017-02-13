@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html id="html">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>查看订单</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <!--描述和关键词-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <!--width  ----  viewport的宽度（width=device-width意思是：宽度等于设备宽度）
+    initial-scale ----- 初始的缩放比例
+    minimum-scale ----- 允许用户缩放到的最小比例
+    maximum-scale ----- 允许用户缩放到的最大比例
+    user-scalable ----- 用户是否可以手动缩放-->
+    <meta name="format-detection" content="telephone=no" />
+    <!--一般情况下，IOS和Android系统都会默认某长度内的数字为电话号码，即使不加也是会默认显示为电话的，因此，取消这个很有必要！-->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--它表示：允许全屏模式浏览，隐藏浏览器导航栏-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--它指定的iphone中safari顶端的状态条的样式
+    默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）-->
+    <link rel="stylesheet" href="../css/viewOrders/viewOrders.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/pullToRefresh.css" />
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script src="../js/iscroll.js"></script>
+    <script src="../js/pullToRefresh.js"></script>
+</head>
+
+
+<body>
+<div class="all_page">
+    <header class="clearfix">
+        <img src = "../img/back.png" alt="">
+        <span>查看订单</span>
+    </header>
+    <section>
+        <div class="menu">
+            <ul class="clearfix">
+                <li class="time">时间</li>
+                <li class="leave">出发地</li>
+                <li class="arrive">目的地</li>
+                <li class="people" style="text-align: left;padding-left: 0.4rem;">人数</li>
+            </ul>
+        </div>
+        <div class="wai">
+            <div id="wrapper">
+                <ul>
+                    <li class="active oldStyle">
+                        <ul class="clearfix">
+                            <li><a href="#">12:00</a></li>
+                            <li><a href="#">楼观台风景区公交车站台</a></li>
+                            <li><a href="#">西邮</a></li>
+                            <li style="text-align: left;padding-left: 1.2rem;"><a href="#">3</a></li>
+                        </ul>
+                        <div class="single"></div>
+                    </li>
+                    <li class="active oldStyle">
+                        <ul class="clearfix">
+                            <li><a href="#">16:45</a></li>
+                            <li><a href="#">钟楼</a></li>
+                            <li><a href="#">西安邮电大学长安校区</a></li>
+                            <li style="text-align: left;padding-left: 1.2rem;"><a href="#">2</a></li>
+                        </ul>
+                        <div class="single"></div>
+                    </li>
+                    <li class="active oldStyle">
+                        <ul class="clearfix">
+                            <li><a href="#">9:10</a></li>
+                            <li><a href="#">小寨</a></li>
+                            <li><a href="#">西安邮电大学长安校区北门茅坡村</a></li>
+                            <li style="text-align: left;padding-left: 1.2rem;"><a href="#">1</a></li>
+                        </ul>
+                        <div class="single"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="button_back">
+            <button id="join"><a href="#">参与拼车</a></button>
+            <button id="iwant"><a href="#">发起拼车</a></button>
+        </div>
+    </section>
+    <footer class="clearfix">
+        <a class="carpooling" href="carpooling.html">
+            <img src="../img/img-carpooling.png" class="footer-img"/>
+            <p class="options" >拼车</p>
+        </a>
+        <a class="message" href="message.html ">
+            <img src="../img/img-message.png" class="footer-img"/>
+            <p class="options" >消息</p>
+        </a>
+        <a class="my" href="my.html">
+            <img src="../img/img-my.png" class="footer-img"/>
+            <p class="options" >我的</p>
+        </a>
+    </footer>
+</div>
+<script>
+    //全局字体rem与px的设置
+    window.onload = function(){
+        fontSelf();
+    };
+    window.onresize = function () {
+        fontSelf();
+    };
+    function fontSelf() {
+        var wHtml = document.getElementById('html');
+        var w = document.documentElement.clientWidth;
+        w =  w > 768 ? 768 : document.documentElement.clientWidth;
+        wHtml.style.fontSize = w * 0.045 + 'px';
+    }
+
+    //上拉刷新，下拉加载
+    refresher.init({
+        id: "wrapper",
+        pullDownAction: Refresh,
+        pullUpAction: Load
+    });
+    var generatedCount = 0;
+    function Refresh() {  //上拉要执行的代码
+        setTimeout(function () {
+         // <-- Simulate network congestion, remove setTimeout from production!
+            //var  li, i;
+            //el = document.querySelector(".scroller>ul>li");
+            //for (var i = 0; i < 1 ; i++) {
+                //li = document.createElement('li');
+                //$(".active").clone().appendTo($(".scroller>ul"));
+                //$(".scroller>ul>li").appendTo($(".scroller>ul"));
+            //在上拉时清除已完成的操作
+            $(".single").css("background-color","#ffffff");
+            $(".scroller>ul>li").addClass("oldStyle");
+            $(".scroller>ul>li").removeClass("line");
+            $(".scroller>ul>li").removeClass("re_active li");
+            $(".scroller>ul>li").css("background-color","#e9f7df");
+            //假设克隆订单
+            $(".active").eq(0).clone().appendTo($(".scroller>ul"));
+            $(".active").eq(1).clone().appendTo($(".scroller>ul"));
+            $(".active").eq(2).clone().appendTo($(".scroller>ul"));
+
+            style();
+            /*  for(var i=0;i<$(".scroller>ul>li").length;i++) {
+                      var onOff=true;
+                      $(".scroller>ul>li").eq(i).click(function () {
+                          if(onOff==true){
+                              $(this).removeClass("oldStyle");
+                              $(this).addClass("line");
+                              $(this).addClass("re_active li");
+                              onOff=false;
+                          }else{
+                              $(this).addClass("oldStyle");
+                              $(this).removeClass("line");
+                              $(this).removeClass("re_active li");
+                              onOff=true;
+                          }
+                      });
+                  }*/
+            /*$(".scroller>ul>li").on('click',function() {
+                $(this).removeClass("oldStyle");
+                $(this).addClass("line");
+                $(this).addClass("re_active li");
+                $(".scroller>ul>li").not($(this)).addClass("oldStyle");
+                $(".scroller>ul>li").not($(this)).removeClass("line");
+                $(".scroller>ul>li").not($(this)).removeClass("re_active li");
+                $(this).siblings().css("background-color", "#e9f7df");       //与this同级的元素颜色改变为背景色
+                $(this).css("background-color", "#d3eb8f");
+                //$(this).not($(this).siblings()).css("background-color", "#d3eb8f");
+            });
+            $(".single").on('click',function(){
+/!*
+                for(var i=0;i<$(".single").length;i++) {
+                    var onOff=true;
+                    if ($(".single").eq(i)[0].checked==true && onOff==true) {
+                        //alert(1);
+                        $('.active').eq(i).css("background-color", "#d3eb8f");
+                        onOff=false;
+                    }else{
+                        $('.active').eq(i).css("background-color", "#e9f7df");
+                        onOff=true;
+                    }
+                }
+*!/
+                $(this).css("background-color","#008800");
+                $(".single").not($(this)).css("background-color","#ffffff");
+            });*/
+
+            wrapper.refresh();/****remember to refresh after  action completed！ ---yourId.refresh(); ----| ****/
+        }, 1000);
+        //$(".single").css("background-color","#ffffff");
+    }
+    function Load() {  //下拉要加载的代码
+        setTimeout(function () {
+        // <-- Simulate network congestion, remove setTimeout from production!
+           // var  li, i;
+            //el = document.querySelector(".scroller>ul>li");
+                //li = document.createElement('li');
+                //$(".active").clone().appendTo($(".scroller>ul"));
+               // $(".scroller>ul>li").appendTo($(".scroller>ul"));
+            $(".single").css("background-color","#ffffff");
+            $(".scroller>ul>li").addClass("oldStyle");
+            $(".scroller>ul>li").removeClass("line");
+            $(".scroller>ul>li").removeClass("re_active li");
+            $(".scroller>ul>li").css("background-color","#e9f7df");
+
+            $(".active").eq(0).clone().appendTo($(".scroller>ul"));
+            $(".active").eq(1).clone().appendTo($(".scroller>ul"));
+            $(".active").eq(2).clone().appendTo($(".scroller>ul"));
+/*
+                for(var i=0;i<$(".scroller>ul>li").length;i++) {
+                    var onOff=true;
+                    $(".scroller>ul>li").eq(i).click(function () {
+                        if(onOff==true){
+                            $(this).removeClass("oldStyle");
+                            $(this).addClass("line");
+                            $(this).addClass("re_active li");
+                            onOff=false;
+                        }else{
+                            $(this).addClass("oldStyle");
+                            $(this).removeClass("line");
+                            $(this).removeClass("re_active li");
+                            onOff=true;
+                        }
+                    });
+                }
+*/
+            style();
+            wrapper.refresh();/****remember to refresh after action completed！！！   ---id.refresh(); --- ****/
+        }, 1000);
+    }
+
+   /* $('body').unbind("click").bind('click',".scroller>ul>li",function() {
+        /!*
+         if($(".scroller>ul>li>ul>li").offsetWidth < $(".scroller>ul>li>ul>li").scrollWidth){
+         alert(123)
+         alert($(".scroller>ul>li>ul>li"))
+         $(this).removeClass("oldStyle");
+         $(this).addClass("line");
+         $(this).addClass("re_active li");
+         }else{
+         $(this).addClass("oldStyle");
+         $(this).removeClass("line");
+         $(this).removeClass("re_active li");
+         }
+         *!/
+        if($(this).css("background-color") == "rgb(233, 247, 223)"){
+            $(this).removeClass("oldStyle");
+            $(this).addClass("line");
+            $(this).addClass("re_active li");
+            //只能点击一个订单改变样式
+            $(".scroller>ul>li").not($(this)).addClass("oldStyle");
+            $(".scroller>ul>li").not($(this)).removeClass("line");
+            $(".scroller>ul>li").not($(this)).removeClass("re_active li");
+            $(this).siblings().css("background-color", "#e9f7df");
+            $(this).not($(this).siblings()).css("background-color", "#d3eb8f");
+        }else{
+            $(this).not($(this).siblings()).css("background-color", "#e9f7df");
+            $(this).addClass("oldStyle");
+            $(this).removeClass("line");
+            $(this).removeClass("re_active li");
+        }
+    });
+    /!*$(".scroller>ul>li>ul>li").map(function() {
+     if (this.offsetWidth < this.scrollWidth) {
+     // do whatever you want
+     $(this).removeClass("oldStyle");
+     $(this).addClass("line");
+     $(this).addClass("re_active li");
+     }else{
+     $(this).addClass("oldStyle");
+     $(this).removeClass("line");
+     $(this).removeClass("re_active li");
+     }
+     });*!/
+    //$(this).css("backgroundColor", "lightblue");
+    //a=$(this).innerText;
+    //$("#alert").innerHTML=a;
+    //var ss = $(this).contents().find('.active li');
+    //var tt = ss.clone(true);
+    //$('#content li').append(tt);
+    //$("#content li").html()==$(".active li").html();
+    //alert($("#content li").html());
+    //alert($(".single").length);
+    // $(".single").eq(i).click(function(){
+    // $(".scroller>ul>li").css("backgroundColor", "lightblue");
+    // })
+    $('body').unbind("click").bind('click','.single',function(){
+        //alert($(".single").css("background-color"));
+        //if($("p").css("background-color") == 'rgb(255, 0, 0)')
+        if($(this).css("background-color") == "rgb(255, 255, 255)"){
+            $(this).css("background-color","#008800");
+            $(".single").not($(this)).css("background-color","#ffffff");
+        }else{
+            $(this).css("background-color","#ffffff");
+        }
+    });
+*/
+    style();
+    function style(){
+        $(".scroller>ul>li").unbind("click").bind('click',function() {
+            /*
+             if($(".scroller>ul>li>ul>li").offsetWidth < $(".scroller>ul>li>ul>li").scrollWidth){
+             alert(123)
+             alert($(".scroller>ul>li>ul>li"))
+             $(this).removeClass("oldStyle");
+             $(this).addClass("line");
+             $(this).addClass("re_active li");
+             }else{
+             $(this).addClass("oldStyle");
+             $(this).removeClass("line");
+             $(this).removeClass("re_active li");
+             }
+             */
+            if($(this).css("background-color") == "rgb(233, 247, 223)"){
+                $(this).removeClass("oldStyle");
+                $(this).addClass("line");
+                $(this).addClass("re_active li");
+                //只能点击一个订单改变样式
+                $(".scroller>ul>li").not($(this)).addClass("oldStyle");
+                $(".scroller>ul>li").not($(this)).removeClass("line");
+                $(".scroller>ul>li").not($(this)).removeClass("re_active li");
+                $(this).siblings().css("background-color", "#e9f7df");
+                $(this).not($(this).siblings()).css("background-color", "#d3eb8f");
+            }else{
+                $(this).not($(this).siblings()).css("background-color", "#e9f7df");
+                $(this).addClass("oldStyle");
+                $(this).removeClass("line");
+                $(this).removeClass("re_active li");
+            }
+        });
+        /*$(".scroller>ul>li>ul>li").map(function() {
+         if (this.offsetWidth < this.scrollWidth) {
+         // do whatever you want
+         $(this).removeClass("oldStyle");
+         $(this).addClass("line");
+         $(this).addClass("re_active li");
+         }else{
+         $(this).addClass("oldStyle");
+         $(this).removeClass("line");
+         $(this).removeClass("re_active li");
+         }
+         });*/
+        //$(this).css("backgroundColor", "lightblue");
+        //a=$(this).innerText;
+        //$("#alert").innerHTML=a;
+        //var ss = $(this).contents().find('.active li');
+        //var tt = ss.clone(true);
+        //$('#content li').append(tt);
+        //$("#content li").html()==$(".active li").html();
+        //alert($("#content li").html());
+        //alert($(".single").length);
+        // $(".single").eq(i).click(function(){
+        // $(".scroller>ul>li").css("backgroundColor", "lightblue");
+        // })
+        $('.single').unbind("click").bind('click',function(){
+            //alert($(".single").css("background-color"));
+            //if($("p").css("background-color") == 'rgb(255, 0, 0)')
+            if($(this).css("background-color") == "rgb(255, 255, 255)"){
+                $(this).css("background-color","#008800");
+                $(".single").not($(this)).css("background-color","#ffffff");
+            }else{
+                $(this).css("background-color","#ffffff");
+            }
+        });
+    }
+
+
+    //我要拼车按钮
+    $("#join").on("click",function(){
+        //alert($(".single").css("background-color"));
+        var num=0;
+        for(var i=0;i<$(".single").length;i++){
+            if($(".single").eq(i).css("background-color") == "rgb(0, 136, 0)"){
+                window.location.href="#";
+                alert("恭喜你，进入下个页面！");
+            }else{
+                num++;
+                if(num==$(".single").length){
+                    alert("请选择合适的订单");
+                }
+            }
+        }
+    });
+    /*
+        for(var i=0;i<$(".scroller>ul>li").length;i++) {
+            var cnd=0;
+            $(".scroller>ul>li").eq(i).click(function () {
+                if(cnd==0){
+                    $(this).removeClass("oldStyle");
+                    $(this).find("ul").addClass("line");
+                    $(this).find("ul").addClass("re_active li");
+                    cnd++;
+                }else{
+                    $(this).addClass("oldStyle");
+                    $(this).find("ul").removeClass("line");
+                    $(this).find("ul").removeClass("re_active li");
+                    cnd=0;
+                }
+            });
+        }
+    */
+
+/*
+    $('.scroller>ul>li').on('click',function() {
+/!*
+       if($(".scroller>ul>li>ul>li").offsetWidth < $(".scroller>ul>li>ul>li").scrollWidth){
+            alert(123)
+            alert($(".scroller>ul>li>ul>li"))
+            $(this).removeClass("oldStyle");
+            $(this).addClass("line");
+            $(this).addClass("re_active li");
+        }else{
+            $(this).addClass("oldStyle");
+            $(this).removeClass("line");
+            $(this).removeClass("re_active li");
+        }
+*!/
+        if($(this).css("background-color") == "rgb(233, 247, 223)"){
+            $(this).removeClass("oldStyle");
+            $(this).addClass("line");
+            $(this).addClass("re_active li");
+            //只能点击一个订单改变样式
+            $(".scroller>ul>li").not($(this)).addClass("oldStyle");
+            $(".scroller>ul>li").not($(this)).removeClass("line");
+            $(".scroller>ul>li").not($(this)).removeClass("re_active li");
+            $(this).siblings().css("background-color", "#e9f7df");
+            $(this).not($(this).siblings()).css("background-color", "#d3eb8f");
+        }else{
+            $(this).not($(this).siblings()).css("background-color", "#e9f7df");
+            $(this).addClass("oldStyle");
+            $(this).removeClass("line");
+            $(this).removeClass("re_active li");
+        }
+    });
+        /!*$(".scroller>ul>li>ul>li").map(function() {
+            if (this.offsetWidth < this.scrollWidth) {
+                // do whatever you want
+                $(this).removeClass("oldStyle");
+                $(this).addClass("line");
+                $(this).addClass("re_active li");
+            }else{
+                $(this).addClass("oldStyle");
+                $(this).removeClass("line");
+                $(this).removeClass("re_active li");
+            }
+        });*!/
+        //$(this).css("backgroundColor", "lightblue");
+            //a=$(this).innerText;
+            //$("#alert").innerHTML=a;
+            //var ss = $(this).contents().find('.active li');
+            //var tt = ss.clone(true);
+            //$('#content li').append(tt);
+            //$("#content li").html()==$(".active li").html();
+            //alert($("#content li").html());
+        //alert($(".single").length);
+       // $(".single").eq(i).click(function(){
+        // $(".scroller>ul>li").css("backgroundColor", "lightblue");
+       // })
+    $('.single').on('click',function(){
+        //alert($(".single").css("background-color"));
+        //if($("p").css("background-color") == 'rgb(255, 0, 0)')
+        if($(this).css("background-color") == "rgb(255, 255, 255)"){
+                 $(this).css("background-color","#008800");
+                 $(".single").not($(this)).css("background-color","#ffffff");
+             }else{
+                 $(this).css("background-color","#ffffff");
+             }
+     });
+*/
+
+/*
+    $(".single").on("click",function(){
+        for(var i=0;i<$(".single").length;i++) {
+            var onOff=true;
+            if ($(".single").eq(i)[0].checked==true && onOff==true) {
+                //alert(1);
+                $('.active').eq(i).css("background-color", "#d3eb8f");
+                onOff=false;
+            }else{
+                $('.active').eq(i).css("background-color", "#e9f7df");
+                onOff=true;
+            }
+        }
+    });
+*/
+     /*$('body').on('click',".single",function(){
+         //alert($(this).backgroundColor)
+         if($(this).is(".white")){
+             $(this).css("background-color","#000000");
+             $(".single").not($(this)).css("background-color","#ffffff");
+         }else{
+             $(this).css("background-color","#000000");
+         }
+     });*/
+/*
+    $(document).ready(function(){
+        $("button").toggle(function(){
+                    $("body").css("background-color","green");},
+                function(){
+                    $("body").css("background-color","red");},
+                function(){
+                    $("body").css("background-color","yellow");}
+        );
+    });
+*/
+   /* $('body').on('click',".single",function(){
+        $(this).toggle(function(){
+                    $(this).css("background-color","blue");},
+                function(){
+                    $(this).css("background-color","red");}
+        );
+     });*/
+   /* $("#ID").click(function(){
+        var yRgb ="#fff";
+        var rgb = $(this).css('background-color');
+        if(rgb!=yRgb ){
+            $(this).css('background-color',yRgb );
+        }else{
+            $(this).css('background-color',red);
+        }
+    });*/
+   /* $('body').on('click',".single",function(){
+        var white = "#000000";
+        var rgb = $(this).css('background-color');
+     if(rgb==white){
+         $(this).css("background-color","#008800");
+     }else{
+         $(this).css("background-color",white);
+         $(".single").not($(this)).css("background-color","#ffffff");
+     }
+     });
+*/
+    //for(var i=0;i<$(".active").length;i++) {
+        //var onOff1=true;
+        //if ($(".single").eq(i)[0].checked==true && onOff==true) {
+        //alert(1);
+        //$('.active').eq(i).css("background-color", "#d3eb8f");
+        // $(this).siblings().css("background-color","#ffffff");
+        //onOff1=false;
+            // $('.active').eq(i).css("background-color", "#e9f7df");
+            // onOff1=true;
+        //}
+        /*function changeColor() {
+            if ($(".single").attr("checked")) {
+                $(".scroller>ul>li").css("backgroundColor", "lightblue");
+            }*/
+            /*for(var i=0;i<$(".single").length;i++){
+        alert($(".single").length)
+
+        if($(".single").eq(i).attr("checked")){
+            $(".scroller>ul>li").css("backgroundColor", "lightblue");
+        }
+    }*/
+    /* setTimeout(function(){
+         for(var i=0;i<$(".scroller>ul>li").length;i++){
+             alert($(".scroller>ul>li").length)
+             $(".scroller>ul>li").eq(i).click(function () {
+                 alert(i)
+                 $(this).css("backgroundColor", "lightblue");
+             })
+         }
+     },1000);*/
+    /*    $("#active").click(function(){
+            $(".oldStyle").removeClass("oldStyle");
+        })
+        for(var i=0;i<$(".scroller ul li")[i].length;i++){
+            $(this).click(function(){
+                $("#active").css("backgroundColor","lightblue");
+            })
+        }
+    */
+
+/*
+    $.ajax({
+        type: "GET",
+        url: "http://123.206.204.163:2333/goCar/viewOrder",
+        data: {
+
+        },
+        dataType: "json",
+        success: function(data){
+            //清空show里面的所有内容
+            var detail = '';
+            for(var Attr in data){
+                detail += '<li class="active oldStyle"><ul class="clearfix"><li>' + data[Attr]['time']
+                        + '</li><li>' + data[Attr]['placeofDeparture']
+                        + '</li><li>' + data[Attr]['destination']
+                        + '</li><li style="text-align: left;padding-left: 1.2rem;">' + data[Attr]['peopleNum']
+                        + '</li></ul><div class="single white"></div></li>';
+            };
+            $('.scroller>ul').html(detail);
+        }
+    });
+*/
+/*
+                        $.each(data, function(commentIndex, comment){
+                            detail += '<tr><td>' + commentIndex
+                                    + ':</td><td>' + comment
+                                    + '</tr>';
+                        });
+*/
+
+
+</script>
+</body>
+</html>

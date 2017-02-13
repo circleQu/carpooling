@@ -1,0 +1,225 @@
+@import "../common.css";
+
+.all_page {
+    max-width:768px;
+    margin:0 auto;
+}
+header {
+    max-width: 768px;
+    width: 100%;
+    height: 2.89rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #54bf62;
+    position: fixed;
+    z-index: 5;
+}
+/*header #back {
+    width: 1%;
+    font-size:1.5rem;
+    padding-left:0.5rem;
+    float:left;
+    background:none;
+    border:none;
+}
+header #back a{
+    color:#FFFFFF;
+}*/
+header img{
+    padding-left: 0.8rem;
+    width: 2.1rem;
+    height: 1.5rem;
+}
+header span {
+    font-size: 1.45rem;
+    font-weight: bold;
+    margin: 0 auto;
+    color: #fff;
+    padding-right: 1.91rem;
+}
+section{
+    height: 38rem;
+    background-color:#e9f7df;
+}
+section .menu {
+    max-width: 768px;
+    position: fixed;
+    width: 100%;
+    top:2.9rem;
+    background-color:#00af43;
+    line-height: 2rem;
+    z-index: 5;
+}
+.people,.leave{
+    background-color: #71d54c;
+}
+section .menu ul li {
+    float:left;
+    width:25%;
+    font-size:1rem;
+    color:#FFF;
+    text-align:center;
+}
+/*
+footer {
+    position: fixed;
+    bottom: 0;
+    height: 3.4rem;
+    width: 100%;
+    z-index: 5;
+    padding-top:0.2rem;
+    padding-bottom:0.2rem;
+    line-height: 3rem;
+    background-color:#e9f7df;
+}
+*/
+footer{
+    position:fixed;
+    width:100%;
+    height:2.89rem;
+    background-color:#54be62;
+    font-size:1.4rem;
+    padding-top:0.2rem;
+    padding-left:10%;
+    left:0;
+    bottom:0;
+    z-index: 20;
+}
+.carpooling{
+    float:left;
+    width:30%;
+    text-align:left;
+    display:block;
+    height:2.89rem;
+}
+.message{
+    float:left;
+    width:30%;
+    text-align:center;
+    height:2.89rem;
+    display:block;
+}
+.my{
+    float:left;
+    width:30%;
+    text-align:right;
+    height:2.89rem;
+    display:block;
+}
+footer a{
+    padding:0;
+    margin:0;
+}
+footer a:link{
+    color:#fff;
+}
+footer a:visited{
+    color:#fff;
+}
+.options{
+    font-size:0.75rem;
+    line-height:1.2rem;
+    color:#fff;
+}
+.footer-img {
+    height: 1.44rem;
+}
+#join {
+    width: 6.25rem;
+    line-height:2.55rem;
+    background-color:#36b348;
+    font-size:1.16rem;
+    border-radius:0.5rem;
+    position: fixed;
+    bottom: 4.51rem;
+    left: 2.89rem;
+    z-index: 10;
+    border: none;
+}
+#join a{
+    color:#FFF;
+}
+#iwant {
+    width: 6.25rem;
+    line-height:2.55rem;
+    background-color:#36b348;
+    font-size:1.16rem;
+    border-radius:0.5rem;
+    position: fixed;
+    bottom: 4.51rem;
+    right:2.89rem;
+    z-index: 10;
+    border: none;
+}
+#iwant a{
+    color:#FFF;
+}
+.active {
+    background-color:#e9f7df;
+    margin-bottom:0.1rem;
+    line-height:2.2rem;
+    position:relative;
+    border-bottom: 0.1rem #a2dea2 solid;
+}
+.active li {
+    float:left;
+    width:25%;
+    font-size:1rem;
+    color:#000;
+    text-align:center;
+}
+.re_active li:nth-child(2),.re_active li:nth-child(3){
+    font-size:0.8rem;
+}
+.oldStyle li{
+    overflow: hidden; /*自动隐藏文字*/
+    text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+    white-space: nowrap;/*强制不换行*/
+}
+#wrapper {
+    position: relative;
+    padding-top: 8.4rem;
+    bottom: 3.8rem;
+    z-index: 1;
+    width: 100%;
+    background-color:#e9f7df;
+}
+.single{
+    position:absolute;
+    right: 1rem;
+    top: 0.4rem;
+    width:1rem;
+    height: 1rem;
+    border-radius: 0.5rem;
+    border: 0.1rem lightgray solid;
+    background-color: #FFFFFF;
+}
+.line{
+    line-height: 1.5rem;
+}
+/*
+input[type="radio"] {
+    -webkit-appearance: none;
+    background: #fff;
+    height: 1rem;
+    vertical-align: middle;
+    width: 1rem;
+    border-radius: 0.5rem;
+}
+input[type="radio"]:checked {
+    background-color: #008800;
+}
+*/
+.button_back{
+    width:100%;
+    height:4.9rem;
+    position:fixed;
+    bottom: 2.8rem;
+    background-color: #e9f7df;
+    z-index:8;
+    max-width: 768px;
+}
+.scroller{
+    background-color: #e9f7df;
+}

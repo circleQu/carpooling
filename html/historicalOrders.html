@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html id="html">
+<head>
+    <meta charset="UTF-8">
+    <title>历史订单</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <!--描述和关键词-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <!--width  ----  viewport的宽度（width=device-width意思是：宽度等于设备宽度）
+    initial-scale ----- 初始的缩放比例
+    minimum-scale ----- 允许用户缩放到的最小比例
+    maximum-scale ----- 允许用户缩放到的最大比例
+    user-scalable ----- 用户是否可以手动缩放-->
+    <meta name="format-detection" content="telephone=no" />
+    <!--一般情况下，IOS和Android系统都会默认某长度内的数字为电话号码，即使不加也是会默认显示为电话的，因此，取消这个很有必要！-->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--它表示：允许全屏模式浏览，隐藏浏览器导航栏-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--它指定的iphone中safari顶端的状态条的样式
+    默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）-->
+    <link rel="stylesheet" href="../css/historicalOrders/historicalOrders.css" />
+    <link rel="stylesheet" href="../css/pullToRefresh.css" />
+    <script src="../js/iscroll.js"></script>
+    <script src="../js/pullToRefresh.js"></script>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+</head>
+
+
+<body>
+<div class="all_page">
+    <header>
+        <img src = "../img/back.png" alt="">
+        <span>历史订单</span>
+    </header>
+    <section>
+        <div class="menu">
+            <ul class="clearfix">
+                <li class="time">时间</li>
+                <li class="people">人数</li>
+                <li class="leave">出发地</li>
+                <li class="arrive">目的地</li>
+                <li class="status">状态</li>
+            </ul>
+        </div>
+        <div id="wrapper">
+                <ul>
+                    <li class="active oldStyle">
+                        <ul class="clearfix">
+                            <li><a href="#">12:00</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">钟楼回民街肉夹馍</a></li>
+                            <li><a href="#">西邮</a></li>
+                            <li><a href="#">已完成</a></li>
+                        </ul>
+                    </li>
+                    <li class="active oldStyle">
+                        <ul class="clearfix">
+                            <li><a href="#">16:45</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">楼观台景区</a></li>
+                            <li><a href="#">西安邮电大学长安校区</a></li>
+                            <li><a href="#">进行中</a></li>
+                        </ul>
+                    </li>
+                    <li class="active oldStyle">
+                        <ul class="clearfix">
+                            <li><a href="#">9:10</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">小寨</a></li>
+                            <li><a href="#">西安邮电大学长安校区北门茅坡村</a></li>
+                            <li><a href="#">已取消</a></li>
+                        </ul>
+                    </li>
+                </ul>
+        </div>
+    </section>
+</div>
+<script>
+    //全局字体rem与px的设置
+    window.onload = function(){
+        fontSelf();
+    };
+    window.onresize = function () {
+        fontSelf();
+    };
+    function fontSelf() {
+        var wHtml = document.getElementById('html');
+        var w = document.documentElement.clientWidth;
+        w =  w > 768 ? 768 : document.documentElement.clientWidth;
+        wHtml.style.fontSize = w * 0.045 + 'px';
+    }
+
+    //上拉刷新，下拉加载
+    refresher.init({
+        id: "wrapper",
+        pullDownAction: Refresh,
+        pullUpAction: Load
+    });
+    var generatedCount = 0;
+    function Refresh() {  //上拉要执行的代码
+        setTimeout(function () {
+        // <-- Simulate network congestion, remove setTimeout from production!
+            //el = document.querySelector(".scroller>ul>li");
+                //li = document.createElement('li');
+                //$(".active").clone().appendTo($(".scroller>ul"));
+                //$(".scroller>ul>li").appendTo($(".scroller>ul"));
+            $(".scroller>ul>li").addClass("oldStyle");
+            $(".scroller>ul>li").removeClass("line");
+            $(".scroller>ul>li").removeClass("re_active li");
+            $(".scroller>ul>li").css("background-color","#e9f7df");
+
+            $(".active").eq(0).clone().appendTo($(".scroller>ul"));
+            $(".active").eq(1).clone().appendTo($(".scroller>ul"));
+            $(".active").eq(2).clone().appendTo($(".scroller>ul"));
+
+            $(".scroller>ul>li").on('click',function() {
+                $(this).removeClass("oldStyle");
+                $(this).addClass("line");
+                $(this).addClass("re_active li");
+                $(".scroller>ul>li").not($(this)).addClass("oldStyle");
+                $(".scroller>ul>li").not($(this)).removeClass("line");
+                $(".scroller>ul>li").not($(this)).removeClass("re_active li");
+                $(this).siblings().css("background-color", "#e9f7df");
+            });
+            wrapper.refresh();/****remember to refresh after  action completed！ ---yourId.refresh(); ----| ****/
+        }, 1000);
+
+    }
+
+    function Load() {  //下拉要加载的代码
+        setTimeout(function () {
+        // <-- Simulate network congestion, remove setTimeout from production!
+            //var  i
+            //el = document.querySelector(".scroller>ul>li");
+                //li = document.createElement('li');
+                //$(".active").clone().appendTo($(".scroller>ul"));
+               // $(".scroller>ul>li").appendTo($(".scroller>ul"));
+            $(".scroller>ul>li").addClass("oldStyle");
+            $(".scroller>ul>li").removeClass("line");
+            $(".scroller>ul>li").removeClass("re_active li");
+            $(".scroller>ul>li").css("background-color","#e9f7df");
+
+            $(".active").eq(0).clone().appendTo($(".scroller>ul"));
+            $(".active").eq(1).clone().appendTo($(".scroller>ul"));
+            $(".active").eq(2).clone().appendTo($(".scroller>ul"));
+
+            $(".scroller>ul>li").on('click',function() {
+                $(this).removeClass("oldStyle");
+                $(this).addClass("line");
+                $(this).addClass("re_active li");
+                $(".scroller>ul>li").not($(this)).addClass("oldStyle");
+                $(".scroller>ul>li").not($(this)).removeClass("line");
+                $(".scroller>ul>li").not($(this)).removeClass("re_active li");
+                $(this).siblings().css("background-color", "#e9f7df");
+            });
+            wrapper.refresh();/****remember to refresh after action completed！！！   ---id.refresh(); --- ****/
+        }, 1000);
+    }
+    $("body").on('click','.scroller>ul>li',function() {
+        if($(this).css("background-color") == "rgb(233, 247, 223)"){
+            $(this).removeClass("oldStyle");
+            $(this).addClass("line");
+            $(this).addClass("re_active li");
+            //只能点击一个订单改变样式
+            $(".scroller>ul>li").not($(this)).addClass("oldStyle");
+            $(".scroller>ul>li").not($(this)).removeClass("line");
+            $(".scroller>ul>li").not($(this)).removeClass("re_active li");
+            $(this).siblings().css("background-color", "#e9f7df");
+            $(this).not($(this).siblings()).css("background-color", "#d3eb8f");
+        }else{
+            $(this).not($(this).siblings()).css("background-color", "#e9f7df");
+            $(this).addClass("oldStyle");
+            $(this).removeClass("line");
+            $(this).removeClass("re_active li");
+        }    });
+
+    $.ajax({
+        type: "GET",
+        url: "http://123.206.204.163:2333/goCar/historicalOrders",
+        data: {
+
+        },
+        dataType: "json",
+        success: function(data){
+            //清空show里面的所有内容
+            var detail = '';
+            for(var Attr in data){
+                //alert(data[Attr]['peopleNum'])
+                detail += '<li class="active oldStyle"><ul class="clearfix"><li>' + data[Attr]['time']
+                        + '</li><li>' + data[Attr]['peopleNum']
+                        + '</li><li>' + data[Attr][' placeofDeparture ']
+                        + '</li><li>' + data[Attr]['destination']
+                        + '</li><li>' + data[Attr]['status']
+                        + '</li></ul></li>';
+            };
+            $('.scroller>ul').html(detail);
+        }
+    });
+
+</script>
+
+</body>
+</html>

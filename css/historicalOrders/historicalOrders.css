@@ -1,0 +1,98 @@
+@import "../common.css";
+
+.all_page {
+    max-width: 768px;
+    margin:0 auto;
+}
+header {
+    max-width: 768px;
+    width: 100%;
+    height: 2.89rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #54bf62;
+    position: fixed;
+    z-index: 5;
+}
+/*header #back {
+    width: 1%;
+    font-size:1.5rem;
+    padding-left:0.5rem;
+    float:left;
+    background:none;
+    border:none;
+}
+header #back a{
+    color:#FFFFFF;
+}*/
+header img{
+    padding-left: 0.8rem;
+    width: 2.1rem;
+    height: 1.5rem;
+}
+header span {
+    font-size: 1.45rem;
+    font-weight: bold;
+    margin: 0 auto;
+    color: #fff;
+    padding-right: 1.91rem;
+}
+section{
+    background-color:#e9f7df;
+    height: 40rem;
+}
+section .menu {
+    position: fixed;
+    width: 100%;
+    line-height: 2rem;
+    z-index: 5;
+    top:2.92rem;
+    max-width: 768px;
+}
+.time,.leave,.status{
+    background-color: #00af43;
+}
+.people,.arrive{
+    background-color: #71d54c;
+}
+section .menu ul li {
+    float:left;
+    width:20%;
+    line-height:2rem;
+    font-size:1rem;
+    color:#FFF;
+    text-align:center;
+}
+.active {
+    background-color:#e9f7df;
+    line-height:2.2rem;
+    position:relative;
+    border-bottom: 0.1rem #a2dea2 solid;
+}
+.active li {
+    float:left;
+    width:20%;
+    font-size:1rem;
+    color:#000;
+    text-align: center;
+}
+.oldStyle li{
+    overflow: hidden; /*自动隐藏文字*/
+    text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+    white-space: nowrap;/*强制不换行*/
+}
+#wrapper {
+    max-width: 768px;
+    position: absolute;
+    top: 4.9rem;
+    line-height: 100%;
+    width: 100%;
+    background-color:#e9f7df;
+}
+.line{
+    line-height: 1.5rem;
+}
+.re_active li:nth-child(3),.re_active li:nth-child(4){
+    font-size:0.8rem;
+}

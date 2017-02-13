@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html id="html">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>设置</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <!--描述和关键词-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <!--width  ----  viewport的宽度（width=device-width意思是：宽度等于设备宽度）
+    initial-scale ----- 初始的缩放比例
+    minimum-scale ----- 允许用户缩放到的最小比例
+    maximum-scale ----- 允许用户缩放到的最大比例
+    user-scalable ----- 用户是否可以手动缩放-->
+    <meta name="format-detection" content="telephone=no" />
+    <!--一般情况下，IOS和Android系统都会默认某长度内的数字为电话号码，即使不加也是会默认显示为电话的，因此，取消这个很有必要！-->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--它表示：允许全屏模式浏览，隐藏浏览器导航栏-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--它指定的iphone中safari顶端的状态条的样式
+    默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）-->
+    <link rel="stylesheet" href="../css/setUp/setUp.css" type="text/css"/>
+</head>
+<body>
+<div class="all_page">
+    <header>
+        <img src = "../img/back.png" alt="">
+        <span>设&nbsp;&nbsp;&nbsp;置</span>
+    </header>
+    <section class="clearfix">
+        <div class="all_name">
+            <p class="name">昵称</p>
+            <p id="nickname"><a href="#">CaptianBra</a><button id="btn1"><a href="#">&gt;</a></button></p>
+        </div>
+        <div class="all_headPic clearfix">
+            <p class="person">头像设置</p>
+            <img src="../img/head-pic2.png"/>
+            <button id="btn2"><a href="#">&gt;</a></button>
+        </div>
+        <div class="all_address">
+            <p class="address">常用地址</p>
+            <button id="btn3"><a href="#">&gt;</a></button>
+        </div>
+        <div class="all_mobile">
+            <p class="mobile_number">更换手机号</p>
+            <button id="btn4"><a href="#">&gt;</a></button>
+        </div>
+        <div class="all_key">
+            <p class="keyword">更换密码</p>
+            <button id="btn5"><a href="#">&gt;</a></button>
+        </div>
+    </section>
+    <footer>
+        <button id="quit">退出当前账号</button>
+        <div id="alert">
+            <a href="#"><button id="take_pic">拍照</button></a>
+            <a href="#"><button id="photo_album">从手机相册选择</button></a>
+            <a href="#"><button id="cancel">取消</button></a>
+        </div>
+        <div id="cover"></div>
+    </footer>
+</div>
+<script>
+    //全局字体rem与px的设置
+    window.onload = function(){
+        fontSelf();
+    };
+    window.onresize = function () {
+        fontSelf();
+    };
+    function fontSelf() {
+        var wHtml = document.getElementById('html');
+        var w = document.documentElement.clientWidth;
+        w =  w > 768 ? 768 : document.documentElement.clientWidth;
+        wHtml.style.fontSize = w * 0.045 + 'px';
+    }
+</script>
+<script src="../js/jquery-1.9.1.min.js"></script>
+<script src="../js/setUp/setUp.js"></script>
+    </body>
+</html>

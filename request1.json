@@ -1,0 +1,12 @@
+请求方式：get
+请求字段：car/historicalOrders.html/#wrapper
+         car/viewOrders.html/#wrapper
+请求内容：
+active = {
+        "time": ["12:00","16:45","9:10"],
+        "people": ["3","2","1"],
+        "leave": ["钟楼回民街肉夹馍","楼观台景区","小寨"],
+        "arrive":["西邮","西安邮电大学长安校区","西安邮电大学长安校区北门茅坡村"],
+        "status": ["已完成","进行中","已取消"],
+}
+主机地址：10.71.184.130
